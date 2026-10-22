@@ -1,0 +1,49 @@
+/* tastebud frames: design tokens.
+   Copy this file into your project and change the values, not the components.
+   Every frame in the gallery reads from these variables, so one edit here
+   restyles all of them. That is what a design system is. */
+
+:root {
+  /* Type: two families with clearly different jobs. Swap them for your own pairing. */
+  --font-display: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, serif;
+  --font-text: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans", source-sans-pro, sans-serif;
+
+  /* Type scale: 1.25 ratio ("major third"). Use only these sizes. */
+  --step--1: 0.8rem;   /* 12.8px captions */
+  --step-0: 1rem;      /* 16px body */
+  --step-1: 1.25rem;   /* 20px */
+  --step-2: 1.563rem;  /* 25px */
+  --step-3: 1.953rem;  /* 31px */
+  --step-4: 2.441rem;  /* 39px */
+
+  /* Spacing scale: 4px base. Use only these gaps. */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+
+  /* Color by role, not by hue. Change --accent and everything follows. */
+  --ink: #1f2a26;          /* main text */
+  --ink-soft: #4b5953;     /* secondary text, still 4.5:1 on surface */
+  --surface: #ffffff;      /* cards, inputs */
+  --page: #f2f4f2;         /* page background */
+  --line: #c9d4cc;         /* borders, dividers */
+  --accent: #2c6652;       /* the one color for actions */
+  --accent-strong: #1f4d3d;/* hover/pressed */
+  --on-accent: #ffffff;    /* text on accent */
+  --danger: #a3241b;       /* destructive actions and errors */
+  --danger-soft: #fbeceb;
+  --success: #2f6b3a;
+  --focus: #9a3f12;        /* focus ring: must contrast with everything */
+
+  /* Shape: small radius for controls, slightly larger for containers. */
+  --radius-control: 6px;
+  --radius-box: 10px;
+  --target: 44px;          /* minimum touch target height */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8efea; --ink-soft: #b2c0b8; --surface: #1d2622; --page: #141a17; --line: #34413b;
+    --accent: #7cc4a7; --accent-strong: #a3dbc4; --on-accent: #0f1f19;
+    --danger: #ff9b91; --danger-soft: #3a1e1c; --success: #8fd19a; --focus: #f0a46b;
+  }
+}

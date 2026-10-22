@@ -1,0 +1,38 @@
+{
+  "name": "tastebud",
+  "version": "0.1.0",
+  "description": "A design linter that catches generic, default-looking and inaccessible UI, explains why, and shows the fix.",
+  "type": "module",
+  "bin": {
+    "tastebud": "bin/tastebud.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "frames",
+    "examples"
+  ],
+  "scripts": {
+    "audit": "node bin/tastebud.js audit",
+    "frames": "node bin/tastebud.js frames",
+    "demo": "node bin/tastebud.js audit examples/generic-landing.html",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "keywords": [
+    "ui",
+    "ux",
+    "design",
+    "lint",
+    "accessibility",
+    "a11y",
+    "design-system"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axe-core": "4.14.0",
+    "playwright-core": "1.64.1"
+  }
+}

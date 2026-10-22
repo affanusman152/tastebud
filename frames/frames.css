@@ -1,0 +1,96 @@
+/* tastebud frames: components. Needs tokens.css loaded first.
+   Every value comes from a token, so these stay consistent when you restyle. */
+
+.f-scope { font-family: var(--font-text); font-size: var(--step-0); line-height: 1.5; color: var(--ink); }
+.f-scope h2, .f-scope h3, .f-scope h4 { font-family: var(--font-display); line-height: 1.2; margin: 0; }
+.f-scope p { margin: 0; max-width: 65ch; }
+.f-scope :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Buttons: one primary per view; the label says what will happen. */
+.f-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--target); padding: 0 var(--space-6);
+  border: 2px solid var(--accent); border-radius: var(--radius-control);
+  background: var(--accent); color: var(--on-accent);
+  font: 600 var(--step-0)/1 var(--font-text); text-decoration: none; cursor: pointer;
+}
+.f-btn:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.f-btn--secondary { background: transparent; color: var(--accent); }
+.f-btn--secondary:hover { background: var(--page); color: var(--accent-strong); }
+.f-btn--quiet { background: transparent; border-color: transparent; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; padding: 0 var(--space-3); }
+.f-btn--quiet:hover { background: transparent; border-color: transparent; color: var(--accent-strong); }
+.f-btn--danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.f-btn--danger:hover { background: var(--danger); filter: brightness(0.9); }
+.f-btn[disabled], .f-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.f-btn[aria-busy="true"]::before {
+  content: ""; width: 1em; height: 1em; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent; animation: f-spin 0.8s linear infinite;
+}
+@keyframes f-spin { to { transform: rotate(360deg); } }
+.f-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+/* Text field: label above, hint before typing, error that says how to fix it. */
+.f-field { display: grid; gap: var(--space-1); max-width: 360px; }
+.f-field label { font-weight: 600; }
+.f-hint { color: var(--ink-soft); font-size: var(--step--1); }
+.f-input {
+  min-height: var(--target); padding: 0 var(--space-3);
+  border: 2px solid var(--line); border-radius: var(--radius-control);
+  background: var(--surface); color: var(--ink); font: inherit;
+}
+.f-input:hover { border-color: var(--ink-soft); }
+.f-input[aria-invalid="true"] { border-color: var(--danger); }
+.f-error { color: var(--danger); font-weight: 600; font-size: var(--step--1); display: flex; gap: var(--space-1); }
+.f-error::before { content: "!"; display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; border-radius: 50%; background: var(--danger); color: #fff; font-size: 0.8em; flex: none; margin-top: 0.15em; }
+
+/* Empty state: say what goes here and give the one action that fills it. */
+.f-empty { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-8); border: 2px dashed var(--line); border-radius: var(--radius-box); background: var(--surface); }
+.f-empty h3 { font-size: var(--step-2); }
+.f-empty p { color: var(--ink-soft); }
+
+/* Loading skeleton: the shape of what is coming, not a spinner in the void. */
+.f-skeleton { display: grid; gap: var(--space-3); padding: var(--space-6); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-box); }
+.f-bone { height: 16px; border-radius: 4px; background: var(--line); animation: f-pulse 1.4s ease-in-out infinite; }
+.f-bone--title { height: 24px; width: 45%; }
+.f-bone--short { width: 70%; }
+@keyframes f-pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .f-bone, .f-btn[aria-busy="true"]::before { animation: none; } }
+.f-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Error state: what happened, what still works, what to do next. */
+.f-alert { display: grid; gap: var(--space-3); padding: var(--space-6); border-left: 6px solid var(--danger); background: var(--danger-soft); border-radius: 0 var(--radius-box) var(--radius-box) 0; }
+.f-alert h3 { font-size: var(--step-1); }
+
+/* Navigation: skip link, where you are, big enough to tap. */
+.f-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-2) var(--space-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-box); position: relative; }
+.f-nav__brand { font-family: var(--font-display); font-size: var(--step-2); font-weight: 700; color: var(--ink); text-decoration: none; }
+.f-nav ul { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+.f-nav ul a { display: inline-flex; align-items: center; min-height: var(--target); padding: 0 var(--space-3); color: var(--ink-soft); text-decoration: none; }
+.f-nav ul a:hover { color: var(--ink); text-decoration: underline; }
+.f-nav ul a[aria-current="page"] { color: var(--ink); font-weight: 600; box-shadow: inset 0 -3px 0 var(--accent); }
+.f-skip { position: absolute; left: var(--space-2); top: var(--space-2); z-index: 1; background: var(--ink); color: var(--surface); padding: var(--space-2) var(--space-3); border-radius: var(--radius-control); }
+.f-skip:not(:focus) { width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Data list: a real table beats a grid of cards when people compare rows. */
+.f-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-box); overflow: hidden; }
+.f-table caption { text-align: left; font-family: var(--font-display); font-size: var(--step-1); padding: 0 0 var(--space-3); }
+.f-table th, .f-table td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--line); }
+.f-table th { font-size: var(--step--1); color: var(--ink-soft); font-weight: 600; }
+.f-table td.num { font-variant-numeric: tabular-nums; }
+.f-status { font-weight: 600; }
+.f-status--free { color: var(--success); }
+.f-status--busy { color: var(--ink-soft); }
+
+/* Ranked features: one lead with room, the rest in support. Not three equal cards. */
+.f-ranked { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-8); }
+.f-ranked h3 { font-size: var(--step-1); margin-bottom: var(--space-2); }
+.f-ranked .f-lead h3 { font-size: var(--step-3); }
+.f-ranked .f-lead p { font-size: var(--step-1); }
+.f-ranked p { color: var(--ink-soft); }
+@media (max-width: 700px) { .f-ranked { grid-template-columns: 1fr; } }
+
+/* Confirmation toast: names the result with the same verb as the button. */
+.f-toast { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--ink); color: var(--surface); border-radius: var(--radius-box); max-width: 440px; }
+.f-toast p { flex: 1; }
+.f-toast .f-btn--quiet { color: var(--surface); }
+.f-toast .f-btn--quiet:hover { color: var(--surface); }

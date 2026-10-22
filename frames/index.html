@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>tastebud frames: interface pieces made with care</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="frames.css">
+<style>
+  /* Gallery chrome (not part of the frames). Same identity as the tastebud report. */
+  :root {
+    --g-page: #f1eff3; --g-ink: #1e1a24; --g-muted: #5d5566; --g-line: #ddd8e2; --g-accent: #c0265e; --g-focus: #1b5fbf;
+    --g-display: Bahnschrift, "DIN Alternate", "Barlow", "D-DIN", "Roboto Condensed", sans-serif;
+    --g-text: "Sitka Text", Charter, "Bitstream Charter", Cambria, Georgia, serif;
+    --g-mono: Consolas, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --g-page: #17141b; --g-ink: #f1edf4; --g-muted: #b3aabd; --g-line: #3a3443; --g-accent: #ff7aa8; --g-focus: #8ab4ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--g-page); color: var(--g-ink); font: 17px/1.6 var(--g-text); }
+  a { color: var(--g-accent); }
+  .g :focus-visible { outline: 3px solid var(--g-focus); outline-offset: 3px; }
+  .g-skip { position: absolute; left: 16px; top: -100px; background: var(--g-ink); color: var(--g-page); padding: 8px 16px; font-family: var(--g-display); }
+  .g-skip:focus { top: 16px; }
+  .g-wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .g h1, .g h2, .g-brand, .g summary, .g-legend, .g button { font-family: var(--g-display); }
+  .g-brand { margin: 0; padding-top: 24px; color: var(--g-accent); font-weight: 700; font-size: 20px; }
+  .g-intro { padding-block: 32px 40px; }
+  .g-intro h1 { font-size: clamp(36px, 5.5vw, 64px); line-height: 1.04; font-weight: 600; margin: 0; max-width: 16ch; }
+  .g-intro p { max-width: 62ch; color: var(--g-muted); margin: 16px 0 0; }
+  .g-accent { margin: 24px 0 0; padding: 0; border: 0; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+  .g-legend { font-weight: 600; padding: 0; margin-right: 8px; float: left; }
+  .g-accent label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+  .g-dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; border: 1px solid var(--g-line); }
+  .g-toc { columns: 2 220px; padding-left: 20px; margin: 24px 0 0; }
+  .g-toc a { display: inline-block; padding: 4px 0; }
+
+  .g-frame { padding-block: 40px; border-top: 2px solid var(--g-ink); }
+  .g-frame h2 { font-size: 30px; font-weight: 600; margin: 0; }
+  .g-use { color: var(--g-muted); margin: 4px 0 20px; max-width: 65ch; }
+  .g-demo { background: var(--page); border: 1px solid var(--g-line); border-radius: 10px; padding: 32px; }
+  .g-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 40px; margin-top: 24px; }
+  .g-notes h3 { font-family: var(--g-display); font-size: 18px; margin: 0 0 8px; font-weight: 600; }
+  .g-notes ul { margin: 0; padding-left: 20px; }
+  .g-notes li { margin-bottom: 6px; }
+  .g-avoid li::marker { content: "✗  "; color: var(--g-accent); }
+  .g-do li::marker { content: "✓  "; }
+  .g-code { margin-top: 20px; }
+  .g-code summary { cursor: pointer; color: var(--g-accent); min-height: 44px; display: inline-flex; align-items: center; }
+  .g-code pre { margin: 8px 0 0; padding: 16px; background: #1e1a24; color: #f1edf4; border-radius: 8px; overflow: auto; font: 14px/1.5 var(--g-mono); max-height: 420px; }
+  .g-copy { margin-top: 8px; min-height: 44px; padding: 0 16px; border: 2px solid var(--g-ink); background: transparent; color: var(--g-ink); border-radius: 6px; font-size: 16px; cursor: pointer; }
+  .g-copied { margin-left: 12px; color: var(--g-muted); }
+  footer.g-foot { border-top: 2px solid var(--g-ink); padding-block: 24px 48px; color: var(--g-muted); }
+  footer.g-foot p { max-width: 70ch; margin: 0 0 8px; }
+  @media (max-width: 720px) { .g-notes { grid-template-columns: 1fr; } .g-demo { padding: 20px; } }
+</style>
+</head>
+<body class="g">
+<a class="g-skip" href="#frames">Skip to the frames</a>
+<header class="g-wrap">
+  <p class="g-brand">tastebud</p>
+</header>
+<main id="frames">
+  <section class="g-wrap g-intro" aria-labelledby="title">
+    <h1 id="title">Frames: small pieces of interface, made with care</h1>
+    <p>Each frame is a common UI moment done properly: every state, readable, reachable by keyboard and big enough to tap. They all read their colors, sizes and spacing from <a href="tokens.css">tokens.css</a>, and their styles live in <a href="frames.css">frames.css</a>. Copy them, then make them yours.</p>
+    <fieldset class="g-accent">
+      <legend class="g-legend">Try a different accent:</legend>
+      <label><input type="radio" name="accent" value="celadon" checked> <span class="g-dot" style="background:#2c6652"></span> Celadon</label>
+      <label><input type="radio" name="accent" value="cobalt"> <span class="g-dot" style="background:#23439a"></span> Cobalt</label>
+      <label><input type="radio" name="accent" value="iron"> <span class="g-dot" style="background:#8a3a12"></span> Iron oxide</label>
+      <label><input type="radio" name="accent" value="plum"> <span class="g-dot" style="background:#6b2c62"></span> Plum</label>
+    </fieldset>
+    <p>Changing one token restyles every frame below. That is the whole idea of a design system.</p>
+    <nav aria-label="Frames on this page">
+      <ul class="g-toc">
+        <li><a href="#buttons">Buttons with every state</a></li>
+        <li><a href="#field">Text field with an error</a></li>
+        <li><a href="#empty">Empty state</a></li>
+        <li><a href="#loading">Loading skeleton</a></li>
+        <li><a href="#error">Error message</a></li>
+        <li><a href="#nav">Navigation bar</a></li>
+        <li><a href="#table">Data table</a></li>
+        <li><a href="#ranked">Ranked features</a></li>
+        <li><a href="#toast">Confirmation message</a></li>
+      </ul>
+    </nav>
+  </section>
+
+  <section class="g-wrap g-frame" id="buttons" aria-labelledby="h-buttons">
+    <h2 id="h-buttons">Buttons with every state</h2>
+    <p class="g-use">Use for actions. Links go somewhere; buttons do something.</p>
+    <div class="g-demo f-scope">
+      <div class="f-row">
+        <button class="f-btn" type="button">Book wheel 2</button>
+        <button class="f-btn f-btn--secondary" type="button">See the week</button>
+        <button class="f-btn f-btn--quiet" type="button">Cancel</button>
+        <button class="f-btn f-btn--danger" type="button">Delete booking</button>
+        <button class="f-btn" type="button" aria-disabled="true">Book wheel 1</button>
+        <button class="f-btn" type="button" aria-busy="true">Booking…</button>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>One filled button per view, so the main action is obvious.</li>
+        <li>Labels are verbs plus objects: "Book wheel 2", not "Submit".</li>
+        <li>Every button is at least 44px tall and shows a focus ring.</li>
+        <li>Loading keeps the button's place and says what is happening.</li>
+        <li>"Disabled" uses <code>aria-disabled</code> so it can still explain itself on focus.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>Three equally loud buttons side by side.</li>
+        <li>"Click here", "Submit", "Learn more" with no object.</li>
+        <li>Pill buttons with a gradient and no visible focus.</li>
+        <li>A greyed-out button with no hint about why.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="field" aria-labelledby="h-field">
+    <h2 id="h-field">Text field with an error</h2>
+    <p class="g-use">Use for any input. The error below is what people see after a wrong entry.</p>
+    <div class="g-demo f-scope">
+      <div class="f-field">
+        <label for="f-email">Email for booking reminders</label>
+        <span class="f-hint" id="f-email-hint">We text and email 2 hours before your slot.</span>
+        <span class="f-error" id="f-email-error">Add an @ and a domain, like amara@riversideclay.org</span>
+        <input class="f-input" id="f-email" type="email" value="amara.riversideclay" aria-invalid="true" aria-describedby="f-email-hint f-email-error" autocomplete="email">
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>A real label above the field, so it stays visible while typing.</li>
+        <li>The hint answers the question before it is asked.</li>
+        <li>The error says how to fix it, with an example, and is linked to the field for screen readers.</li>
+        <li>Error is shown by color, an icon and text, never color alone.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>Placeholder text as the only label; it vanishes when you type.</li>
+        <li>"Invalid input" in red with no hint about what is valid.</li>
+        <li>A red border as the only sign that something went wrong.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="empty" aria-labelledby="h-empty">
+    <h2 id="h-empty">Empty state</h2>
+    <p class="g-use">Use when a list has nothing in it yet. It is the first screen many people see.</p>
+    <div class="g-demo f-scope">
+      <div class="f-empty">
+        <h3>No bookings this week</h3>
+        <p>Wheels 2 and 3 are free on Thursday evening. Booked slots show up here with their times.</p>
+        <button class="f-btn" type="button">Book a wheel</button>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>Says what will appear here, so people learn the screen.</li>
+        <li>Offers the one action that fills it.</li>
+        <li>Uses real, useful information instead of a mood.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>A big illustration and "Nothing here yet!" with no next step.</li>
+        <li>A blank white area that looks like a bug.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="loading" aria-labelledby="h-loading">
+    <h2 id="h-loading">Loading skeleton</h2>
+    <p class="g-use">Use while content is on its way, for anything over about half a second.</p>
+    <div class="g-demo f-scope">
+      <div class="f-skeleton" role="status">
+        <span class="f-visually-hidden">Loading this week's bookings</span>
+        <div class="f-bone f-bone--title"></div>
+        <div class="f-bone"></div>
+        <div class="f-bone f-bone--short"></div>
+        <div class="f-bone"></div>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>Shows the shape of what is coming, so the page does not jump.</li>
+        <li>Announces "Loading this week's bookings" to screen readers.</li>
+        <li>The pulse stops for people who turn on reduced motion.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>A spinner in the middle of an empty page.</li>
+        <li>Shimmer effects that never stop and say nothing.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="error" aria-labelledby="h-error">
+    <h2 id="h-error">Error message</h2>
+    <p class="g-use">Use when something failed and the person needs to act.</p>
+    <div class="g-demo f-scope">
+      <div class="f-alert" role="alert">
+        <h3>Your booking for wheel 2 was not saved</h3>
+        <p>Kiln could not reach the studio's calendar. Your other bookings are safe. Try again; if it fails twice, the studio desk can book it for you.</p>
+        <div class="f-row">
+          <button class="f-btn" type="button">Try booking again</button>
+          <a class="f-btn f-btn--quiet" href="#error">Call the studio desk</a>
+        </div>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>The heading says exactly what failed.</li>
+        <li>It says what still works, which lowers panic.</li>
+        <li>It gives a next step and a fallback. No apology, no blame.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>"Oops! Something went wrong." with a sad emoji.</li>
+        <li>An error code with no explanation.</li>
+        <li>A toast that disappears before anyone reads it.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="nav" aria-labelledby="h-nav">
+    <h2 id="h-nav">Navigation bar</h2>
+    <p class="g-use">Use at the top of every page. Press Tab inside the frame to find the skip link.</p>
+    <div class="g-demo f-scope">
+      <div class="f-nav">
+        <a class="f-skip" href="#nav">Skip to main content</a>
+        <a class="f-nav__brand" href="#nav">Kiln</a>
+        <nav aria-label="Example main navigation">
+          <ul>
+            <li><a href="#nav" aria-current="page">This week</a></li>
+            <li><a href="#nav">Firings</a></li>
+            <li><a href="#nav">Members</a></li>
+            <li><a href="#nav">Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>A skip link lets keyboard users jump past the menu.</li>
+        <li>The current page is marked visually and with <code>aria-current</code>.</li>
+        <li>Links are 44px tall even though the text is small.</li>
+        <li>On phones the links wrap instead of hiding.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>Seven links in light grey, 13px, no current-page marker.</li>
+        <li>A hamburger menu on a desktop screen with plenty of room.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="table" aria-labelledby="h-table">
+    <h2 id="h-table">Data table</h2>
+    <p class="g-use">Use when people compare items across the same columns. Cards hide that comparison.</p>
+    <div class="g-demo f-scope">
+      <table class="f-table">
+        <caption>Thursday at Riverside Clay</caption>
+        <thead><tr><th scope="col">Station</th><th scope="col">Status</th><th scope="col">Until</th><th scope="col">Bookings this week</th></tr></thead>
+        <tbody>
+          <tr><td>Wheel 1</td><td class="f-status f-status--busy">Booked by Amara</td><td>8 p.m.</td><td class="num">11</td></tr>
+          <tr><td>Wheel 2</td><td class="f-status f-status--free">Free</td><td>From 6 p.m.</td><td class="num">7</td></tr>
+          <tr><td>Wheel 3</td><td class="f-status f-status--free">Free</td><td>All evening</td><td class="num">4</td></tr>
+          <tr><td>Bisque kiln</td><td class="f-status f-status--busy">Firing</td><td>Fri 10 a.m.</td><td class="num">2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>A real <code>&lt;table&gt;</code> with a caption and header cells, so screen readers announce each column.</li>
+        <li>Numbers use tabular figures so they line up.</li>
+        <li>Status is a word, with color as a bonus.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>A grid of identical cards, one per row of data.</li>
+        <li>Green and red dots as the only status signal.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="ranked" aria-labelledby="h-ranked">
+    <h2 id="h-ranked">Ranked features</h2>
+    <p class="g-use">Use instead of the three-identical-cards row on a landing page.</p>
+    <div class="g-demo f-scope">
+      <div class="f-ranked">
+        <div class="f-lead">
+          <h3>The booking sheet, but it updates itself</h3>
+          <p>One row per wheel, one column per hour, like the paper sheet on the studio door. Tap a free slot to book it.</p>
+        </div>
+        <div><h3>Kiln firings</h3><p>Add pieces to the next firing and get a message when they're out.</p></div>
+        <div><h3>Fair limits</h3><p>A weekly cap per member so the regulars don't take every Saturday.</p></div>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>The most important idea gets the most space.</li>
+        <li>Each line is specific to this product; none of it could describe another app.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>Icon, title, blurb, three times, all equal.</li>
+        <li>Titles like "Lightning fast", "Secure", "Easy to use".</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="g-wrap g-frame" id="toast" aria-labelledby="h-toast">
+    <h2 id="h-toast">Confirmation message</h2>
+    <p class="g-use">Use right after an action succeeds, so people know it worked.</p>
+    <div class="g-demo f-scope">
+      <div class="f-toast" role="status">
+        <p>Wheel 2 booked for Thursday, 6 to 8 p.m.</p>
+        <button class="f-btn f-btn--quiet" type="button">Undo</button>
+      </div>
+    </div>
+    <div class="g-notes">
+      <div class="g-do"><h3>Why this works</h3><ul>
+        <li>Uses the same verb as the button ("Book" becomes "booked").</li>
+        <li>Repeats the details, so mistakes are caught right away.</li>
+        <li>Offers Undo instead of an "Are you sure?" dialog up front.</li>
+        <li><code>role="status"</code> announces it without stealing focus.</li>
+      </ul></div>
+      <div class="g-avoid"><h3>The generic version</h3><ul data-tastebud-ignore>
+        <li>"Success!" with a confetti animation.</li>
+        <li>A message that vanishes in two seconds.</li>
+      </ul></div>
+    </div>
+  </section>
+</main>
+<footer class="g-wrap g-foot">
+  <p>Part of tastebud. Run <code>tastebud audit frames/index.html</code> to check this page with the same rules the frames follow.</p>
+  <p>The studio, people and bookings are fictional examples.</p>
+</footer>
+
+<script>
+  // Accent switcher: change two tokens, every frame follows.
+  // [accent, hover] for light mode, then for dark mode.
+  const ACCENTS = {
+    celadon: [['#2c6652', '#1f4d3d'], ['#7cc4a7', '#a3dbc4']],
+    cobalt: [['#23439a', '#1a3275'], ['#9db4ff', '#c4d2ff']],
+    iron: [['#8a3a12', '#6b2c0d'], ['#f5b48a', '#f9cfb2']],
+    plum: [['#6b2c62', '#52204b'], ['#e3a3d8', '#f0c4ea']],
+  };
+  const dark = matchMedia('(prefers-color-scheme: dark)');
+  const apply = () => {
+    const choice = document.querySelector('input[name="accent"]:checked').value;
+    const [accent, strong] = ACCENTS[choice][dark.matches ? 1 : 0];
+    document.documentElement.style.setProperty('--accent', accent);
+    document.documentElement.style.setProperty('--accent-strong', strong);
+  };
+  for (const input of document.querySelectorAll('input[name="accent"]')) input.addEventListener('change', apply);
+  dark.addEventListener('change', apply);
+
+  // "Show the code" for every frame, generated from the live demo so it never goes stale.
+  for (const demo of document.querySelectorAll('.g-demo')) {
+    const html = [...demo.children].map((el) => el.outerHTML).join('\n')
+      .replace(/\n\s{6}/g, '\n').trim();
+    const details = document.createElement('details');
+    details.className = 'g-code';
+    details.innerHTML = '<summary>Show the code</summary><pre><code></code></pre><button class="g-copy" type="button">Copy HTML</button><span class="g-copied" role="status"></span>';
+    details.querySelector('code').textContent = html + '\n\n<!-- Styles: tokens.css + frames.css -->';
+    details.querySelector('.g-copy').addEventListener('click', async () => {
+      const status = details.querySelector('.g-copied');
+      try {
+        await navigator.clipboard.writeText(html);
+        status.textContent = 'Copied.';
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(details.querySelector('code'));
+        getSelection().removeAllRanges();
+        getSelection().addRange(range);
+        status.textContent = 'Selected. Press Ctrl+C to copy.';
+      }
+    });
+    demo.after(details);
+  }
+</script>
+</body>
+</html>

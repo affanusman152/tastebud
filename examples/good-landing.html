@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiln: book a wheel at your community pottery studio</title>
+<!-- The considered version of generic-landing.html. Same product, same sections.
+     Every choice here is explained in the comments, so you can steal the reasoning, not just the CSS. -->
+<style>
+  /* One type scale (1.25 ratio) and one spacing scale (4px base). Every value below comes from these. */
+  :root {
+    --font-display: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, serif;
+    --font-text: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans", source-sans-pro, sans-serif;
+    --step-0: 1rem; --step-1: 1.25rem; --step-2: 1.5625rem; --step-3: 1.953rem; --step-4: 2.441rem; --step-5: 3.052rem;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+    /* Color comes from the subject: celadon glaze, stoneware body, iron-oxide wash. Each color has a job. */
+    --ink: #1f2a26; --ink-soft: #4b5953; --paper: #e9eee9; --surface: #f8faf7; --line: #c9d4cc;
+    --accent: #2c6652; --accent-ink: #ffffff; --accent-hover: #1f4d3d; --focus: #9a3f12;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-text); font-size: var(--step-0); line-height: 1.5; color: var(--ink); background: var(--paper); }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0; }
+  p { margin: 0; max-width: 65ch; }
+  a { color: var(--accent); }
+  /* Never remove focus without replacing it. */
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+  .skip-link { position: absolute; left: var(--space-4); top: -100px; background: var(--ink); color: var(--paper); padding: var(--space-2) var(--space-4); }
+  .skip-link:focus { top: var(--space-4); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--space-6); }
+
+  header { border-bottom: 1px solid var(--line); background: var(--surface); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: var(--space-6); }
+  .logo { font-family: var(--font-display); font-size: var(--step-2); font-weight: 700; color: var(--ink); text-decoration: none; }
+  nav ul { display: flex; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+  /* Links get a 44px-tall hit area even though the text is small. */
+  nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-3); color: var(--ink-soft); text-decoration: none; }
+  nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  .hero { padding: var(--space-24) 0 var(--space-16); }
+  .hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-12); align-items: end; }
+  .eyebrow { font-size: var(--step-0); color: var(--accent); font-weight: 600; margin-bottom: var(--space-4); }
+  .hero h1 { font-size: var(--step-5); max-width: 14ch; }
+  .hero p.lede { font-size: var(--step-1); color: var(--ink-soft); margin-top: var(--space-6); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
+  .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-6); border-radius: 6px; font: 600 var(--step-0)/1 var(--font-text); text-decoration: none; border: 2px solid var(--accent); cursor: pointer; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .btn-secondary { background: transparent; color: var(--accent); }
+  /* A real artifact instead of an icon: the actual booking sheet. */
+  .sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: var(--space-6); }
+  .sheet h2 { font-size: var(--step-1); margin-bottom: var(--space-4); }
+  .slot { display: flex; justify-content: space-between; padding: var(--space-3) 0; border-top: 1px solid var(--line); }
+  .slot b { font-weight: 600; }
+  .slot .free { color: var(--accent); font-weight: 600; }
+  .slot .taken { color: var(--ink-soft); }
+
+  /* One lead feature with room to breathe, two supporting ones. Not three equal cards. */
+  .how { padding: var(--space-16) 0; border-top: 1px solid var(--line); }
+  .how .wrap { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-8); }
+  .how h2 { font-size: var(--step-3); margin-bottom: var(--space-4); }
+  .how h3 { font-size: var(--step-1); margin-bottom: var(--space-2); }
+  .how .lead p { font-size: var(--step-1); color: var(--ink-soft); }
+  .how p { color: var(--ink-soft); }
+
+  .proof { padding: var(--space-16) 0; background: var(--ink); color: var(--paper); }
+  .proof blockquote { margin: 0; font-family: var(--font-display); font-size: var(--step-3); line-height: 1.3; max-width: 28ch; }
+  .proof cite { display: block; margin-top: var(--space-6); font: normal var(--step-0) var(--font-text); color: #c3d2ca; }
+
+  footer { padding: var(--space-8) 0; color: var(--ink-soft); }
+  @media (max-width: 760px) {
+    .hero .wrap, .how .wrap { grid-template-columns: 1fr; }
+    .hero { padding-top: var(--space-12); }
+    /* Don't hide navigation on phones: let it wrap under the logo. */
+    header .wrap { flex-wrap: wrap; gap: 0; padding-bottom: var(--space-2); }
+    nav ul { flex-wrap: wrap; gap: 0; margin-left: calc(-1 * var(--space-3)); }
+  }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#">Kiln</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#studios">For studios</a></li>
+          <li><a href="#signin">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow">For community pottery studios</p>
+          <h1>Book a wheel without the group chat</h1>
+          <p class="lede">Members see which wheels, kilns and glaze stations are free this week and book in two taps. Studio owners stop answering "is anyone using wheel 3?" at 9&nbsp;p.m.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#start">Set up your studio, free for 30 days</a>
+            <a class="btn btn-secondary" href="#how">See how booking works</a>
+          </div>
+        </div>
+        <section class="sheet" aria-labelledby="sheet-title">
+          <h2 id="sheet-title">Thursday at Riverside Clay</h2>
+          <div class="slot"><b>Wheel 1</b><span class="taken">Booked by Amara until 8 p.m.</span></div>
+          <div class="slot"><b>Wheel 2</b><span class="free">Free from 6 p.m.</span></div>
+          <div class="slot"><b>Wheel 3</b><span class="free">Free all evening</span></div>
+          <div class="slot"><b>Kiln (bisque)</b><span class="taken">Firing, ready Friday 10 a.m.</span></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="lead">
+          <h2 id="how-title">The booking sheet, but it updates itself</h2>
+          <p>Studios told us the paper sheet on the door was the only system everyone understood. So Kiln looks like that sheet: one row per wheel, one column per hour. Tap a free slot to book it. Running late? Release it, and the next person on the waitlist gets a text.</p>
+        </div>
+        <div>
+          <h3>Kiln firings</h3>
+          <p>Add your pieces to the next bisque or glaze firing and get a message when they're out.</p>
+        </div>
+        <div>
+          <h3>Fair limits</h3>
+          <p>Set a weekly cap per member so the regulars don't take every Saturday.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof" aria-label="What a studio owner says">
+      <div class="wrap">
+        <blockquote>"We used to lose a wheel-hour a day to no-shows. Since the waitlist texts, it's almost none."</blockquote>
+        <cite>Dana Okafor, owner of Riverside Clay (42 members)</cite>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Kiln is a workshop example made for the tastebud project. The studio and quote are fictional.</p>
+    </div>
+  </footer>
+</body>
+</html>

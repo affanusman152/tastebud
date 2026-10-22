@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Kiln - The Future of Pottery</title>
+<!-- Workshop exercise: this page is deliberately generic. Run `npx tastebud audit examples/generic-landing.html`
+     and fix what it finds. Compare with good-landing.html when you are done. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, sans-serif; color: #333; background: #fafafa; text-align: center; }
+  button, a { outline: none; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 13px 37px; backdrop-filter: blur(12px); background: rgba(255,255,255,.6); position: sticky; top: 0; }
+  .nav a { color: #999; margin: 0 11px; font-size: 13px; text-decoration: none; }
+  .logo { font-weight: 700; font-size: 21px; }
+  .icon-btn { width: 18px; height: 18px; border: 0; padding: 0; background: #ddd; border-radius: 4px; font-size: 10px; }
+  .hero { padding: 97px 22px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%); color: #fff; }
+  .hero h1 { font-size: 27px; margin: 0 0 17px; }
+  .hero p { font-size: 17px; margin: 0 auto 29px; color: #e9d5ff; }
+  .cta { display: inline-block; padding: 14px 33px; border-radius: 999px; background: #fff; color: #7c3aed; font-weight: 600; border: 0; font-size: 15px; }
+  .cta.ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.6); margin-left: 9px; }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; padding: 71px 43px; }
+  .card { background: rgba(255,255,255,.7); backdrop-filter: blur(10px); border-radius: 18px; padding: 31px 23px; box-shadow: 0 10px 30px rgba(124,58,237,.12); }
+  .card .icon { font-size: 31px; }
+  .card h3 { font-size: 19px; margin: 11px 0 7px; }
+  .card p { color: #aaa; font-size: 14px; line-height: 1.2; }
+  .about { padding: 59px 47px; }
+  .about h2 { font-size: 23px; }
+  .about h4 { font-size: 15.5px; }
+  .cta.ghost { font-size: 14.5px; }
+  .about p { font-size: 13.5px; line-height: 1.15; color: #b0b0b0; margin: 0 0 19px; }
+  .stats { display: flex; justify-content: center; gap: 41px; padding: 33px; background: linear-gradient(90deg, #4f46e5, #9333ea); color: #fff; }
+  .stats div { backdrop-filter: blur(6px); background: rgba(255,255,255,.1); padding: 19px 27px; border-radius: 14px; font-size: 22.5px; }
+  .stats small { display: block; font-size: 11px; color: #ddd6fe; }
+  footer { padding: 27px; font-size: 11.5px; color: #c4c4c4; }
+  footer img { width: 120px; }
+</style>
+</head>
+<body>
+  <div class="nav">
+    <span class="logo">✨ Kiln</span>
+    <div>
+      <a href="#">Features</a><a href="#">Pricing</a><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a>
+      <button class="icon-btn">☰</button>
+      <button class="icon-btn">🔍</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>🚀 Unlock the Power of Pottery with AI</h1>
+    <p>Kiln is the all-in-one platform that seamlessly empowers creators to supercharge their workflow and take their craft to the next level.</p>
+    <button class="cta">Get Started Today</button>
+    <button class="cta ghost">Learn More</button>
+  </div>
+
+  <div class="features">
+    <div class="card"><div class="icon">⚡</div><h3>Lightning Fast</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blazing fast booking for every studio.</p></div>
+    <div class="card"><div class="icon">🎯</div><h3>Feature Two</h3><p>Cutting-edge tools designed for the modern potter. Effortlessly manage your studio time.</p></div>
+    <div class="card"><div class="icon">🔒</div><h3>Secure &amp; Robust</h3><p>A robust solution with world-class security, trusted by thousands of makers worldwide.</p></div>
+  </div>
+
+  <div class="about">
+    <h2>Why Choose Kiln?</h2>
+    <h4>Built for the future</h4>
+    <p>In today's fast-paced world, potters need a game-changer. Kiln leverages next-gen technology to revolutionize the way studios share wheels, kilns and glazing stations, so that every member of the community can harness the power of collaborative making without the friction of spreadsheets, group chats and paper sign-up sheets pinned to the studio door that nobody ever reads.</p>
+    <p>Our state-of-the-art platform transforms the way you book, fire and share. Whether you are a beginner throwing your first bowl or a professional running a busy community studio with dozens of members, Kiln delivers a seamless experience that scales with you and grows alongside your practice, your studio and your ambitions for the future of ceramics.</p>
+    <p>Join thousands of creators who already trust Kiln. Click here to learn more about our features, or contact our team at hello@example.com for a personalised demo of everything the platform can do for you and your studio.</p>
+  </div>
+
+  <div class="stats">
+    <div>10,000+<small>Happy potters</small></div>
+    <div>99.9%<small>Uptime</small></div>
+    <div>24/7<small>Support</small></div>
+    <div>4.9★<small>Rating</small></div>
+  </div>
+
+  <footer>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24'%3E%3Crect width='120' height='24' fill='%23ddd'/%3E%3C/svg%3E">
+    <p>© 2026 Your Company Name. All rights reserved.</p>
+  </footer>
+</body>
+</html>

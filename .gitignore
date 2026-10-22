@@ -1,0 +1,5 @@
+node_modules/
+tastebud-report/
+*.log
+.DS_Store
+PROGRESS.md
